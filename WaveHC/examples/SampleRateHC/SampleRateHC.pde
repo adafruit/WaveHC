@@ -52,7 +52,7 @@ void loop() {
   // scroll through the files in the directory
   while (root.readDir(dir) > 0) { 
     // only play .WAV files
-    if (!strncmp_P((char *)&dir.name[8]. PSTR("WAV"))) continue;
+    if (strncmp_P((char *)&dir.name[8],PSTR("WAV"), 3)) continue;
     
     if (!file.open(vol, dir)){
       putstring("Can't open ");
