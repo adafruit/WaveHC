@@ -1,12 +1,12 @@
+# WaveHC
+
 WaveHC is a library for the Adafruit Wave Shield.
 
 To use this library place the uncompressed WaveHC folder into the 
 libraries subfolder in your main sketches folder.  You may need to
 create the libraries folder.  Restart the Arduino IDE if it was open.
 
-Be sure to read Ladyada's excellent tutorial for WaveHC:
-http://www.ladyada.net/make/waveshield/libraryhc.html
-
+Be sure to read [Ladyada's excellent tutorial for WaveHC](http://www.ladyada.net/make/waveshield/libraryhc.html).
 Developers and advanced Arduino users may wish to read the html
 documentation starting with html/index.html.
 
@@ -16,14 +16,14 @@ Try daphc.pde in the WaveHC/examples folder.  If you have
 problems run the SdReadTest.pde sketch to get more information.
 
 
-ATMEGA168
+## ATMEGA168
 
 For the AtMega168 be sure to reduce the serial buffer size by setting 
-RX_BUFFER_SIZE to 32 or less in 
-hardware/arduino/cores/arduino/HardwareSerial.cpp.  I use 16.
+`RX_BUFFER_SIZE` to 32 or less in 
+`hardware/arduino/cores/arduino/HardwareSerial.cpp`.  I use 16.
 
 
-SD CARD INIT PROBLEMS
+## SD CARD INIT PROBLEMS
 
 Some SD card are very sensitive to the SPI bus speed for initialization.
 Try setting SPI_INIT_SLOW nonzero if you have initialization problems.
@@ -31,7 +31,7 @@ To change edit SdReader.h and change the SPI_INIT_SLOW line to:
 #define SPI_INIT_SLOW 1
 
 
-WAVE SHIELD V1.0
+## WAVE SHIELD V1.0
 
 You may have SD I/O errors with Wave Shield V1.0.  Most SD cards
 work with V1.0 but some brands/types fail.  Often reducing the SPI
@@ -41,12 +41,12 @@ SPI speed.
 
 The default speed for card.init can be changed to 4 Mhz by changing
 the following line in the WaveHC file SdReader.h from
-#define SPI_DEFAULT_HALF_SPEED false
+`#define SPI_DEFAULT_HALF_SPEED false`
 to
-#define SPI_DEFAULT_HALF_SPEED true
+`#define SPI_DEFAULT_HALF_SPEED true`
 
 
-PREPARING SD CARDS
+## PREPARING SD CARDS
 
 WaveHC supports FAT16/FAT32 formats on SD/SDHC cards.  WaveHC only
 supports short 8.3 DOS style file names.
@@ -76,7 +76,7 @@ reduces latency and file system overhead.  SDFormatter does not have an
 option for FAT type so it may format small cards as FAT12.
 
 
-EXAMPLES
+## EXAMPLES
 
 I have included several updates examples for WaveHC in the WaveHC/examples 
 folder.  More examples can be downloaded from the Adafruit website:
@@ -84,34 +84,34 @@ http://www.ladyada.net/make/waveshield/examples.html
 
 The updated examples are:
 
-daphc.pde - plays all .WAV files on an SD.
+`daphc.pde` - plays all .WAV files on an SD.
 
-SdReadTest.pde - A sketch to get more information about an SD card.
+`SdReadTest.pde` - A sketch to get more information about an SD card.
 
-PiSpeaker.pde - A text-to-voice sketch that reads pi.  You need to
+`PiSpeaker.pde` - A text-to-voice sketch that reads pi.  You need to
                 put the files from the piwav folder in example files
                 on an SD.
                 
-SampleRateHC.pde - A modified version of the Adafruit example that
+`SampleRateHC.pde` - A modified version of the Adafruit example that
                    sets player sample rate by reading analog pin zero.
                    
-SoftVolume.pde - A modified version of the Adafruit example
+`SoftVolume.pde` - A modified version of the Adafruit example
                  for software volume control.
 
 
-openByIndex.pde - Shows how to reduce latency between files for
+`openByIndex.pde` - Shows how to reduce latency between files for
                   applications that must not have a large latency
                   between files.
 
                   
-CUSTOM SETTINGS
+## CUSTOM SETTINGS
 
 Advanced users may wish to change WaveHC settings.  Most setting are
 defines in these files:
 
-WaveHC.h  - Buffer size, contiguous file optimization, enable software
+`WaveHC.h`  - Buffer size, contiguous file optimization, enable software
             volume, and error control.
 
-WavePinDefs.h - Change default pin definitions. Save pin 5.
+`WavePinDefs.h` - Change default pin definitions. Save pin 5.
 
-SdReader.h - Change default SPI bus speed.
+`SdReader.h` - Change default SPI bus speed.
