@@ -1,6 +1,6 @@
 /*
  This library is a highly modified version of Ladyada's Wave Shield library.
- I have made many changes that may have introduced bugs.  
+ I have made many changes that may have introduced bugs.
 */
 #ifndef WaveHC_h
 #define WaveHC_h
@@ -15,12 +15,12 @@
  * Disable if you need minimum latency for open.  Also see open by index.
  */
 #define OPTIMIZE_CONTIGUOUS 1
- /**
-  * Software volume control should be compatible with Ladyada's library.
-  * Uses shift to decrease volume by 6 dB per step. See DAC ISR in WaveHC.cpp.
-  * Must be set after call to WaveHC::create().
-  * Decreases MAX_CLOCK_RATE to 22050.
-  */
+/**
+ * Software volume control should be compatible with Ladyada's library.
+ * Uses shift to decrease volume by 6 dB per step. See DAC ISR in WaveHC.cpp.
+ * Must be set after call to WaveHC::create().
+ * Decreases MAX_CLOCK_RATE to 22050.
+ */
 #define DVOLUME 0
 /**
  * Set behavior for files that exceed MAX_CLOCK_RATE or MAX_BYTE_RATE.
@@ -57,7 +57,7 @@
 #else // DVOLUME
 /** Decreased clock rate if volume control is used */
 #define MAX_CLOCK_RATE 22050
-#endif //DVOLUME
+#endif // DVOLUME
 
 //------------------------------------------------------------------------------
 /**
@@ -88,14 +88,30 @@ public:
   uint8_t volume;
 #endif // DVOLUME
   /** FatReader instance for current wave file. */
-  FatReader* fd;
-  
+  FatReader *fd;
+
   WaveHC(void);
   uint8_t create(FatReader &f);
   /** Return the size of the WAV file */
-  uint32_t getSize(void) {return fd->fileSize();}
+  uint32_t getSize(void) { return fd->fileSize(); }
   uint8_t isPaused(void);
   void pause(void);
+
+  /*!
+   * \brief Fill the play buffer
+   * \note This function must be called between WaveHC::create() and WaveHC::play()
+   */
+  void load(void);
+
+  /*!
+   * \brief Play a wave file.
+   *
+   * \note WaveHC::create() and WaveHC::load() must be called before a file can
+   * be played.
+   *
+   * Check the member variable WaveHC::isplaying to monitor the status
+   * of the player.
+   */
   void play(void);
   int16_t readWaveData(uint8_t *buff, uint16_t len);
   void resume(void);
@@ -104,4 +120,4 @@ public:
   void stop(void);
 };
 
-#endif //WaveHC_h
+#endif // WaveHC_h
