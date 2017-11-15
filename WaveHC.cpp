@@ -283,16 +283,8 @@ void WaveHC::pause(void) {
   sei();
   fd->volume()->rawDevice()->readEnd(); // redo any partial read on resume
 }
-//------------------------------------------------------------------------------
-/**
- * Play a wave file.
- *
- * WaveHC::create() must be called before a file can be played.
- *
- * Check the member variable WaveHC::isplaying to monitor the status
- * of the player.
- */
-void WaveHC::play(void) {
+
+void WaveHC::load(void) {
   // setup the interrupt as necessary
 
   int16_t read;
@@ -311,7 +303,9 @@ void WaveHC::play(void) {
   sdbuff = buffer2;
   sdend = sdbuff + read;
   sdstatus = SD_READY;
-  
+}
+
+void WaveHC::play(void) {
   // its official!
   isplaying = 1;
   
