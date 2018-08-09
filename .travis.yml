@@ -21,11 +21,9 @@ install:
    - arduino --install-library "Adafruit ILI9341","Adafruit GFX Library"
 
 script:
-   - cd WaveHC
    - build_main_platforms
 
 # Generate and deploy documentation
 after_success:
   - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/library_check.sh)
-  - cd $TRAVIS_BUILD_DIR
   - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
