@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['sck',['SCK',['../_wave_pin_defs_8h.html#a2dd443a4430713d325ab86895a4a45eb',1,'WavePinDefs.h']]],
+  ['sd_5fcard_5ferror_5facmd41',['SD_CARD_ERROR_ACMD41',['../_sd_reader_8h.html#a043cdf1e70e2b5539cde3dd367258b24',1,'SdReader.h']]],
+  ['sd_5fcard_5ferror_5fbad_5fcsd',['SD_CARD_ERROR_BAD_CSD',['../_sd_reader_8h.html#a9df077b461c68e89948084558dfcad8b',1,'SdReader.h']]],
+  ['sd_5fcard_5ferror_5fcmd0',['SD_CARD_ERROR_CMD0',['../_sd_reader_8h.html#aa7c662bd95eb8e8edaca7ce43e9ba99c',1,'SdReader.h']]],
+  ['sd_5fcard_5ferror_5fcmd17',['SD_CARD_ERROR_CMD17',['../_sd_reader_8h.html#a99efba8e688723e142020bd754e1dc51',1,'SdReader.h']]],
+  ['sd_5fcard_5ferror_5fcmd24',['SD_CARD_ERROR_CMD24',['../_sd_reader_8h.html#acb157becb7249fba285d462d4384c52b',1,'SdReader.h']]],
+  ['sd_5fcard_5ferror_5fcmd58',['SD_CARD_ERROR_CMD58',['../_sd_reader_8h.html#a26f0236e59772f1eba71ae36d6c575dd',1,'SdReader.h']]],
+  ['sd_5fcard_5ferror_5fcmd8',['SD_CARD_ERROR_CMD8',['../_sd_reader_8h.html#a9de0d1a9bc0b894507b0d8319189216f',1,'SdReader.h']]],
+  ['sd_5fcard_5ferror_5fcmd8_5fecho',['SD_CARD_ERROR_CMD8_ECHO',['../_sd_reader_8h.html#a28550e4ccb64139d6c93280e50da4ed1',1,'SdReader.h']]],
+  ['sd_5fcard_5ferror_5fread',['SD_CARD_ERROR_READ',['../_sd_reader_8h.html#a5fb9fcc98bfcee2df0666b0f3ba15be8',1,'SdReader.h']]],
+  ['sd_5fcard_5ferror_5fread_5freg',['SD_CARD_ERROR_READ_REG',['../_sd_reader_8h.html#ad8397853cd1ed72403a3284aeafade18',1,'SdReader.h']]],
+  ['sd_5fcard_5ferror_5fread_5ftimeout',['SD_CARD_ERROR_READ_TIMEOUT',['../_sd_reader_8h.html#a1d3ba4c89594ad19c0da0869d6fb53c8',1,'SdReader.h']]],
+  ['sd_5fcard_5ftype_5fsd1',['SD_CARD_TYPE_SD1',['../_sd_reader_8h.html#adf2c997a80bf840dda0f2402a0fadc09',1,'SdReader.h']]],
+  ['sd_5fcard_5ftype_5fsd2',['SD_CARD_TYPE_SD2',['../_sd_reader_8h.html#a68c5f303d55ec6c7b539975c71fdc820',1,'SdReader.h']]],
+  ['sd_5fcard_5ftype_5fsdhc',['SD_CARD_TYPE_SDHC',['../_sd_reader_8h.html#a8a08cf03b900725c65d012f170de7ecd',1,'SdReader.h']]],
+  ['sd_5fread_5ftimeout',['SD_READ_TIMEOUT',['../_sd_reader_8h.html#a467cd8f1fd6a8d0f283cbd785038f714',1,'SdReader.h']]],
+  ['spi_5fdefault_5fhalf_5fspeed',['SPI_DEFAULT_HALF_SPEED',['../_sd_reader_8h.html#ac004b6a0401899896e780d1d6fe8b627',1,'SdReader.h']]],
+  ['spi_5finit_5fslow',['SPI_INIT_SLOW',['../_sd_reader_8h.html#a66fc85355d01af3f7c303284090da01c',1,'SdReader.h']]],
+  ['ss',['SS',['../_wave_pin_defs_8h.html#a88f7782e210e61586baf33b93240d905',1,'WavePinDefs.h']]]
+];
