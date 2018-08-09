@@ -1,4 +1,9 @@
-WaveHC is a library for the Adafruit Wave Shield.
+# Adafruit FT6206 Library [![Build Status](https://travis-ci.org/adafruit/WaveHC.svg?branch=master)](https://travis-ci.org/adafruit/WaveHC)
+
+<img src="https://cdn-shop.adafruit.com/970x728/94-05.jpg" height="300"/>
+
+WaveHC is a library for the Adafruit Wave Shield.:
+  * https://www.adafruit.com/products/94
 
 To use this library place the uncompressed WaveHC folder into the 
 libraries subfolder in your main sketches folder.  You may need to

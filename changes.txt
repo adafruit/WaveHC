@@ -1,3 +1,7 @@
+9 Aug 2018
+
+update documentation
+
 19 Sep 2011
 
 Changes for Arduino 1.0
