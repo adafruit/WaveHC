@@ -83,6 +83,7 @@
 /** write data accepted token */
 #define DATA_RES_ACCEPTED     0X05
 //------------------------------------------------------------------------------
+
 typedef struct CID {
   //byte 0
   uint8_t mid;//Manufacturer ID

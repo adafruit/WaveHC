@@ -101,7 +101,11 @@ public:
   uint32_t fatStartBlock(void) {return fatStartBlock_;}
   /** \return The FAT type of the volume. Values are 12, 16 or 32. */
   uint8_t fatType(void) {return fatType_;}
-  /** Raw device for this volume */
+
+  /*! 
+      @brief  Raw device for this volume
+      @returns the raw device
+  */
   SdReader *rawDevice(void) {return rawDevice_;}
   /** \return The number of entries in the root directory for FAT16 volumes. */
   uint32_t rootDirEntryCount(void) {return rootDirEntryCount_;}
@@ -194,7 +198,11 @@ public:
   uint8_t seekSet(uint32_t pos) {
     if (pos >= readPosition_) return seekCur(pos - readPosition_);
     rewind(); return seekCur(pos);}
-  /** Parent volume */
+    
+  /*! 
+      @brief  get the parent volume
+      @returns the parent volume
+  */
   FatVolume *volume(void) {return vol_;}
 };
 #endif//FatReader_h

@@ -133,13 +133,28 @@ public:
    * Read a cards CID register. The CID contains card identification information
    * such as Manufacturer ID, Product name, Product serial number and
    * Manufacturing date. */
+
+    /*! 
+        @brief  Read a cards CID register. The CID contains card identification information
+                such as Manufacturer ID, Product name, Product serial number and
+                Manufacturing date.
+        @param cid the pointer to the cid struct the data should be placed in
+        @returns the return code after the read
+    */
   uint8_t readCID(cid_t &cid) {return readRegister(CMD10, (uint8_t *)&cid);}
-  /** 
-   * Read a cards CSD register. The CSD contains Card-Specific Data that
-   * provides information regarding access to the card contents. */
+
+  /*!
+    @brief Read a cards CSD register. The CSD contains Card-Specific Data that
+    provides information regarding access to the card contents.
+    @param csd pointer to the struct the data should be placed in.
+    @returns the return code after the read.
+  */
   uint8_t readCSD(csd_t &csd) {return readRegister(CMD9, (uint8_t *)&csd);}
   void readEnd(void);
-  /** Return the card type: SD V1, SD V2 or SDHC */
+  /*!
+    @brief Return the card type: SD V1, SD V2 or SDHC
+    @returns the type
+  */
   uint8_t type() {return type_;}
 };
 #endif //SdReader_h

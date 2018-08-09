@@ -55,11 +55,13 @@ void printEntryName(dir_t &dir) {
     Serial.write('/');
   }
 }
-//------------------------------------------------------------------------------
-/**
- *  List file in a directory
- *
- */
+
+/**************************************************************************/
+/*! 
+    @brief  list file in a directory
+    @param flags file flags
+*/
+/**************************************************************************/
 void FatReader::ls(uint8_t flags) {
   dir_t d;
   if (isDir()) lsR(d, flags, 0);

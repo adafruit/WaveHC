@@ -1,7 +1,18 @@
-/*
- This library is a highly modified version of Ladyada's Wave Shield library.
- I have made many changes that may have introduced bugs.  
-*/
+/*!
+ * @file WaveHC.h
+ *
+ * This library is a highly modified version of Ladyada's Wave Shield library.
+ * I have made many changes that may have introduced bugs.  
+ * 
+ * 
+ * Adafruit invests time and resources providing this open source code, 
+ * please support Adafruit and open-source hardware by purchasing 
+ * products from Adafruit!
+ *
+ * BSD license, all text here must be included in any redistribution.
+ *
+ */
+
 #ifndef WaveHC_h
 #define WaveHC_h
 #include <FatReader.h>
@@ -92,7 +103,10 @@ public:
   
   WaveHC(void);
   uint8_t create(FatReader &f);
-  /** Return the size of the WAV file */
+  /*!
+   @brief Return the size of the WAV file 
+   @returns the size of the WAV file
+  */
   uint32_t getSize(void) {return fd->fileSize();}
   uint8_t isPaused(void);
   void pause(void);
