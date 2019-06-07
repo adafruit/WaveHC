@@ -1,4 +1,4 @@
-# Adafruit FT6206 Library [![Build Status](https://travis-ci.org/adafruit/WaveHC.svg?branch=master)](https://travis-ci.org/adafruit/WaveHC)
+## Adafruit WaveHC Library [![Build Status](https://travis-ci.org/adafruit/WaveHC.svg?branch=master)](https://travis-ci.org/adafruit/WaveHC)
 
 <img src="https://cdn-shop.adafruit.com/970x728/94-05.jpg" height="300"/>
 
