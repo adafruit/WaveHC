@@ -3,12 +3,12 @@
 #ifndef ArduinoPins_h
 #define ArduinoPins_h
 
-#define PIN_BITNUM(pin) (PIN ## pin ## _BITNUM)
-#define PIN_PORTREG(pin) (PIN ## pin ## _PORTREG)
-#define PIN_DDRREG(pin) (PIN ## pin ## _DDRREG)
-#define PIN_PINREG(pin) (PIN ## pin ## _PINREG)
+#define PIN_BITNUM(pin) (PIN##pin##_BITNUM)
+#define PIN_PORTREG(pin) (PIN##pin##_PORTREG)
+#define PIN_DDRREG(pin) (PIN##pin##_DDRREG)
+#define PIN_PINREG(pin) (PIN##pin##_PINREG)
 #ifndef _BV
-#define _BV(n) (1<<(n))
+#define _BV(n) (1 << (n))
 #endif
 
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
@@ -312,7 +312,7 @@
 #define PIN68_PINREG PINK
 #define PIN69_PINREG PINK
 
-#elif defined (__AVR_ATmega644P__)
+#elif defined(__AVR_ATmega644P__)
 // Sanguino
 
 #error Sanguino not defined

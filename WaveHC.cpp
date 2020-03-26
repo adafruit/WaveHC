@@ -1,13 +1,13 @@
 /* Arduino WaveHC Library
  * Copyright (C) 2009 by William Greiman
- *  
+ *
  * This file is part of the Arduino WaveHC Library
- *  
- * This Library is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
+ *
+ * This Library is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This Library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -155,14 +155,14 @@ http://www.sdcard.org/developers/tech/sdcard/pls/Simplified_Physical_Layer_Spec.
 The ATmega328 datasheet:
 
 http://www.atmel.com/dyn/resources/prod_documents/doc8161.pdf
- 
- */  
 
-#include <string.h>
-#include <avr/interrupt.h>
-#include <mcpDac.h>
+ */
+
 #include <WaveHC.h>
 #include <WaveUtil.h>
+#include <avr/interrupt.h>
+#include <mcpDac.h>
+#include <string.h>
 
 // verify program assumptions
 #if PLAYBUFFLEN != 256 && PLAYBUFFLEN != 512
@@ -173,39 +173,38 @@ WaveHC *playing = 0;
 
 uint8_t buffer1[PLAYBUFFLEN];
 uint8_t buffer2[PLAYBUFFLEN];
-uint8_t *playend;      ///< end position for current buffer
-uint8_t *playpos;      ///< position of next sample
-uint8_t *sdbuff;       ///< SD fill buffer
-uint8_t *sdend;        ///< end of data in sd buffer
+uint8_t *playend; ///< end position for current buffer
+uint8_t *playpos; ///< position of next sample
+uint8_t *sdbuff;  ///< SD fill buffer
+uint8_t *sdend;   ///< end of data in sd buffer
 
 // status of sd
-#define SD_READY 1     ///< buffer is ready to be played
-#define SD_FILLING 2   ///< buffer is being filled from DS
-#define SD_END_FILE 3  ///< reached end of file
+#define SD_READY 1    ///< buffer is ready to be played
+#define SD_FILLING 2  ///< buffer is being filled from DS
+#define SD_END_FILE 3 ///< reached end of file
 uint8_t sdstatus = 0;
 
 //------------------------------------------------------------------------------
 // timer interrupt for DAC
 ISR(TIMER1_COMPA_vect) {
-  if (!playing) return;
+  if (!playing)
+    return;
 
   if (playpos >= playend) {
     if (sdstatus == SD_READY) {
-    
+
       // swap double buffers
       playpos = sdbuff;
       playend = sdend;
       sdbuff = sdbuff != buffer1 ? buffer1 : buffer2;
-      
+
       sdstatus = SD_FILLING;
       // interrupt to call SD reader
-	    TIMSK1 |= _BV(OCIE1B);
-    }
-    else if (sdstatus == SD_END_FILE) {
+      TIMSK1 |= _BV(OCIE1B);
+    } else if (sdstatus == SD_END_FILE) {
       playing->stop();
       return;
-    }
-    else {
+    } else {
       // count overrun error if not at end of file
       if (playing->remainingBytesInChunk) {
         playing->errors++;
@@ -216,57 +215,55 @@ ISR(TIMER1_COMPA_vect) {
 
   uint8_t dh, dl;
   if (playing->BitsPerSample == 16) {
-  
+
     // 16-bit is signed
     dh = 0X80 ^ playpos[1];
     dl = playpos[0];
     playpos += 2;
-  }
-  else {
-  
+  } else {
+
     // 8-bit is unsigned
     dh = playpos[0];
     dl = 0;
     playpos++;
   }
-  
+
 #if DVOLUME
   uint16_t tmp = (dh << 8) | dl;
   tmp >>= playing->volume;
   dh = tmp >> 8;
   dl = tmp;
-#endif //DVOLUME
+#endif // DVOLUME
 
   // dac chip select low
   mcpDacCsLow();
-  
+
   // send DAC config bits
   mcpDacSdiLow();
-  mcpDacSckPulse();  // DAC A
-  mcpDacSckPulse();  // unbuffered
+  mcpDacSckPulse(); // DAC A
+  mcpDacSckPulse(); // unbuffered
   mcpDacSdiHigh();
-  mcpDacSckPulse();  // 1X gain
-  mcpDacSckPulse();  // no SHDN
-  
+  mcpDacSckPulse(); // 1X gain
+  mcpDacSckPulse(); // no SHDN
+
   // send high 8 bits
-  mcpDacSendBit(dh,  7);
-  mcpDacSendBit(dh,  6);
-  mcpDacSendBit(dh,  5);
-  mcpDacSendBit(dh,  4);
-  mcpDacSendBit(dh,  3);
-  mcpDacSendBit(dh,  2);
-  mcpDacSendBit(dh,  1);
-  mcpDacSendBit(dh,  0);
-  
+  mcpDacSendBit(dh, 7);
+  mcpDacSendBit(dh, 6);
+  mcpDacSendBit(dh, 5);
+  mcpDacSendBit(dh, 4);
+  mcpDacSendBit(dh, 3);
+  mcpDacSendBit(dh, 2);
+  mcpDacSendBit(dh, 1);
+  mcpDacSendBit(dh, 0);
+
   // send low 4 bits
-  mcpDacSendBit(dl,  7);
-  mcpDacSendBit(dl,  6);
-  mcpDacSendBit(dl,  5);
-  mcpDacSendBit(dl,  4);
-  
+  mcpDacSendBit(dl, 7);
+  mcpDacSendBit(dl, 6);
+  mcpDacSendBit(dl, 5);
+  mcpDacSendBit(dl, 4);
+
   // chip select high - done
   mcpDacCsHigh();
-
 }
 //------------------------------------------------------------------------------
 // this is the interrupt that fills the playbuffer
@@ -275,29 +272,27 @@ ISR(TIMER1_COMPB_vect) {
 
   // turn off calling interrupt
   TIMSK1 &= ~_BV(OCIE1B);
-  
-  if (sdstatus != SD_FILLING) return;
+
+  if (sdstatus != SD_FILLING)
+    return;
 
   // enable interrupts while reading the SD
   sei();
-  
+
   int16_t read = playing->readWaveData(sdbuff, PLAYBUFFLEN);
-  
+
   cli();
   if (read > 0) {
     sdend = sdbuff + read;
     sdstatus = SD_READY;
-  }
-  else {
+  } else {
     sdend = sdbuff;
     sdstatus = SD_END_FILE;
   }
 }
 //------------------------------------------------------------------------------
 /** create an instance of WaveHC. */
-WaveHC::WaveHC(void) {
-  fd = 0;
-}
+WaveHC::WaveHC(void) { fd = 0; }
 //------------------------------------------------------------------------------
 /**
  * Read a wave file's metadata and initialize member variables.
@@ -314,10 +309,10 @@ uint8_t WaveHC::create(FatReader &f) {
   // can use this since Arduino and RIFF are Little Endian
   union {
     struct {
-      char     id[4];
+      char id[4];
       uint32_t size;
-      char     data[4];
-    } riff;  // riff chunk
+      char data[4];
+    } riff; // riff chunk
     struct {
       uint16_t compress;
       uint16_t channels;
@@ -328,70 +323,64 @@ uint8_t WaveHC::create(FatReader &f) {
       uint16_t extraBytes;
     } fmt; // fmt data
   } buf;
-  
+
 #if OPTIMIZE_CONTIGUOUS
   // set optimized read for contiguous files
   f.optimizeContiguous();
 #endif // OPTIMIZE_CONTIGUOUS
 
   // must start with WAVE header
-  if (f.read(&buf, 12) != 12
-      || strncmp(buf.riff.id, "RIFF", 4)
-      || strncmp(buf.riff.data, "WAVE", 4)) {
-        return false;
+  if (f.read(&buf, 12) != 12 || strncmp(buf.riff.id, "RIFF", 4) ||
+      strncmp(buf.riff.data, "WAVE", 4)) {
+    return false;
   }
 
   // next chunk must be fmt
-  if (f.read(&buf, 8) != 8
-      || strncmp(buf.riff.id, "fmt ", 4)) {
-        return false;
+  if (f.read(&buf, 8) != 8 || strncmp(buf.riff.id, "fmt ", 4)) {
+    return false;
   }
-  
+
   // fmt chunk size must be 16 or 18
   uint16_t size = buf.riff.size;
   if (size == 16 || size == 18) {
     if (f.read(&buf, size) != (int16_t)size) {
       return false;
     }
-  }
-  else {
+  } else {
     // compressed data - force error
     buf.fmt.compress = 0;
   }
-  
+
   if (buf.fmt.compress != 1 || (size == 18 && buf.fmt.extraBytes != 0)) {
     putstring_nl("Compression not supported");
     return false;
   }
-  
+
   Channels = buf.fmt.channels;
   if (Channels > 2) {
     putstring_nl("Not mono/stereo!");
     return false;
-  }
-  else if (Channels > 1) {
+  } else if (Channels > 1) {
     putstring_nl(" Warning stereo file!");
   }
-  
+
   BitsPerSample = buf.fmt.bitsPerSample;
   if (BitsPerSample > 16) {
     putstring_nl("More than 16 bits per sample!");
     return false;
   }
-  
+
   dwSamplesPerSec = buf.fmt.sampleRate;
-  uint32_t clockRate = dwSamplesPerSec*Channels;
-  uint32_t byteRate = clockRate*BitsPerSample/8;
-  
+  uint32_t clockRate = dwSamplesPerSec * Channels;
+  uint32_t byteRate = clockRate * BitsPerSample / 8;
+
 #if RATE_ERROR_LEVEL > 0
-  if (clockRate > MAX_CLOCK_RATE
-      || byteRate > MAX_BYTE_RATE) {
+  if (clockRate > MAX_CLOCK_RATE || byteRate > MAX_BYTE_RATE) {
     putstring_nl("Sample rate too high!");
     if (RATE_ERROR_LEVEL > 1) {
       return false;
     }
-  }
-  else if (byteRate > 44100 && !f.isContiguous()) {
+  } else if (byteRate > 44100 && !f.isContiguous()) {
     putstring_nl("High rate fragmented file!");
     if (RATE_ERROR_LEVEL > 1) {
       return false;
@@ -404,12 +393,12 @@ uint8_t WaveHC::create(FatReader &f) {
   errors = 0;
   isplaying = 0;
   remainingBytesInChunk = 0;
-  
+
 #if DVOLUME
   volume = 0;
-#endif //DVOLUME
+#endif // DVOLUME
   // position to data
-  return readWaveData(0, 0) < 0 ? false: true;
+  return readWaveData(0, 0) < 0 ? false : true;
 }
 //------------------------------------------------------------------------------
 /*!
@@ -428,7 +417,7 @@ uint8_t WaveHC::isPaused(void) {
  */
 void WaveHC::pause(void) {
   cli();
-  TIMSK1 &= ~_BV(OCIE1A); //disable DAC interrupt
+  TIMSK1 &= ~_BV(OCIE1A); // disable DAC interrupt
   sei();
   fd->volume()->rawDevice()->readEnd(); // redo any partial read on resume
 }
@@ -450,30 +439,32 @@ void WaveHC::play(void) {
 
   // fill the play buffer
   read = readWaveData(buffer1, PLAYBUFFLEN);
-  if (read <= 0) return;
+  if (read <= 0)
+    return;
   playpos = buffer1;
   playend = buffer1 + read;
 
   // fill the second buffer
   read = readWaveData(buffer2, PLAYBUFFLEN);
-  if (read < 0) return;
+  if (read < 0)
+    return;
   sdbuff = buffer2;
   sdend = sdbuff + read;
   sdstatus = SD_READY;
-  
+
   // its official!
   isplaying = 1;
-  
+
   // Setup mode for DAC ports
   mcpDacInit();
-  
+
   // Set up timer one
   // Normal operation - no pwm not connected to pins
   TCCR1A = 0;
   // no prescaling, CTC mode
-  TCCR1B = _BV(WGM12) | _BV(CS10); 
+  TCCR1B = _BV(WGM12) | _BV(CS10);
   // Sample rate - play stereo interleaved
-  OCR1A =  F_CPU / (dwSamplesPerSec*Channels);
+  OCR1A = F_CPU / (dwSamplesPerSec * Channels);
   // SD fill interrupt happens at TCNT1 == 1
   OCR1B = 1;
   // Enable timer interrupt for DAC ISR
@@ -482,8 +473,8 @@ void WaveHC::play(void) {
 //------------------------------------------------------------------------------
 /*! Read wave data.
  *
- * @brief Not for use in applications.  Must be public so SD read ISR can access it.
- * Insures SD sectors are aligned with buffers.
+ * @brief Not for use in applications.  Must be public so SD read ISR can access
+ * it. Insures SD sectors are aligned with buffers.
  * @param buff pointer to the buffer where the data should be placed
  * @param len the number of bytes to read.
  * @returns the number of bytes that were actually read.
@@ -492,16 +483,17 @@ int16_t WaveHC::readWaveData(uint8_t *buff, uint16_t len) {
 
   if (remainingBytesInChunk == 0) {
     struct {
-      char     id[4];
+      char id[4];
       uint32_t size;
     } header;
     while (1) {
-      if (fd->read(&header, 8) != 8) return -1;
+      if (fd->read(&header, 8) != 8)
+        return -1;
       if (!strncmp(header.id, "data", 4)) {
         remainingBytesInChunk = header.size;
         break;
       }
- 
+
       // if not "data" then skip it!
       if (!fd->seekCur(header.size)) {
         return -1;
@@ -511,14 +503,16 @@ int16_t WaveHC::readWaveData(uint8_t *buff, uint16_t len) {
 
   // make sure buffers are aligned on SD sectors
   uint16_t maxLen = PLAYBUFFLEN - fd->readPosition() % PLAYBUFFLEN;
-  if (len > maxLen) len = maxLen;
+  if (len > maxLen)
+    len = maxLen;
 
   if (len > remainingBytesInChunk) {
     len = remainingBytesInChunk;
   }
-  
+
   int16_t ret = fd->read(buff, len);
-  if (ret > 0) remainingBytesInChunk -= ret;
+  if (ret > 0)
+    remainingBytesInChunk -= ret;
   return ret;
 }
 //------------------------------------------------------------------------------
@@ -526,7 +520,8 @@ int16_t WaveHC::readWaveData(uint8_t *buff, uint16_t len) {
 void WaveHC::resume(void) {
   cli();
   // enable DAC interrupt
-  if(isplaying) TIMSK1 |= _BV(OCIE1A);
+  if (isplaying)
+    TIMSK1 |= _BV(OCIE1A);
   sei();
 }
 //------------------------------------------------------------------------------
@@ -541,10 +536,13 @@ void WaveHC::seek(uint32_t pos) {
   cli();
   if (fd) {
     pos -= pos % PLAYBUFFLEN;
-    if (pos < PLAYBUFFLEN) pos = PLAYBUFFLEN; //don't play metadata
+    if (pos < PLAYBUFFLEN)
+      pos = PLAYBUFFLEN; // don't play metadata
     uint32_t maxPos = fd->readPosition() + remainingBytesInChunk;
-    if (maxPos > fd->fileSize()) maxPos = fd->fileSize();
-    if (pos > maxPos) pos = maxPos;
+    if (maxPos > fd->fileSize())
+      maxPos = fd->fileSize();
+    if (pos > maxPos)
+      pos = maxPos;
     if (fd->seekSet(pos)) {
       // assumes a lot about the wave file
       remainingBytesInChunk = maxPos - pos;
@@ -559,19 +557,22 @@ void WaveHC::seek(uint32_t pos) {
  * No checks are done on the input parameter.
  */
 void WaveHC::setSampleRate(uint32_t samplerate) {
-  if (samplerate < 500) samplerate = 500;
-  if (samplerate > 50000) samplerate = 50000;
+  if (samplerate < 500)
+    samplerate = 500;
+  if (samplerate > 50000)
+    samplerate = 50000;
   // from ladayada's library.
   cli();
-  while (TCNT0 != 0);
-  
+  while (TCNT0 != 0)
+    ;
+
   OCR1A = F_CPU / samplerate;
   sei();
 }
 //------------------------------------------------------------------------------
 /** Stop the player. */
 void WaveHC::stop(void) {
-  TIMSK1 &= ~_BV(OCIE1A);   // turn off interrupt
+  TIMSK1 &= ~_BV(OCIE1A); // turn off interrupt
   playing->isplaying = 0;
   playing = 0;
 }
