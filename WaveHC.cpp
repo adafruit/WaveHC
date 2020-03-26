@@ -307,6 +307,10 @@ WaveHC::WaveHC(void) { fd = 0; }
 uint8_t WaveHC::create(FatReader &f) {
   // 18 byte buffer
   // can use this since Arduino and RIFF are Little Endian
+  if (!DVOLUME){
+    Serial.println("DVOLUME must be set to non-zero in WaveHC.h");
+    return false;
+  }
   union {
     struct {
       char id[4];
@@ -394,9 +398,7 @@ uint8_t WaveHC::create(FatReader &f) {
   isplaying = 0;
   remainingBytesInChunk = 0;
 
-#if DVOLUME
   volume = 0;
-#endif // DVOLUME
   // position to data
   return readWaveData(0, 0) < 0 ? false : true;
 }

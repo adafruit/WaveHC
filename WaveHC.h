@@ -15,6 +15,7 @@
 
 #ifndef WaveHC_h
 #define WaveHC_h
+#include "Arduino.h"
 #include <FatReader.h>
 /**
  * \file
@@ -94,10 +95,8 @@ public:
   /** Number of times data was not available from the SD in the DAC ISR */
   uint32_t errors;
 
-#if DVOLUME
   /** Software volume control. Reduce volume by 6 dB per step. See DAC ISR. */
   uint8_t volume;
-#endif // DVOLUME
   /** FatReader instance for current wave file. */
   FatReader *fd;
 
