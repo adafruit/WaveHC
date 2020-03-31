@@ -1,7 +1,18 @@
 var searchData=
 [
+  ['r2w_5ffactor',['r2w_factor',['../struct_c_s_d_v1.html#a477e3d269e084c6ee559237aefcee729',1,'CSDV1::r2w_factor()'],['../struct_c_s_d_v2.html#a58bd5e31a21564370b5321ce744c53cf',1,'CSDV2::r2w_factor()']]],
+  ['read_5fbl_5flen',['read_bl_len',['../struct_c_s_d_v1.html#ac814673bd138c6e3cffc9cd1f1d89d7c',1,'CSDV1::read_bl_len()'],['../struct_c_s_d_v2.html#a79cb233cef532dc1682e0ef11f7745dc',1,'CSDV2::read_bl_len()']]],
+  ['read_5fbl_5fpartial',['read_bl_partial',['../struct_c_s_d_v1.html#ab0943077d01c440bb15aff025a700197',1,'CSDV1::read_bl_partial()'],['../struct_c_s_d_v2.html#acb3ef2206ca2c6c5266c67b695509036',1,'CSDV2::read_bl_partial()']]],
+  ['read_5fblk_5fmisalign',['read_blk_misalign',['../struct_c_s_d_v1.html#aa5f31d46dc26c164663fb16acf1dea34',1,'CSDV1::read_blk_misalign()'],['../struct_c_s_d_v2.html#aa4b5351683ccc4331a446dccfa22ba97',1,'CSDV2::read_blk_misalign()']]],
   ['remainingbytesinchunk',['remainingBytesInChunk',['../class_wave_h_c.html#a8cfa85e40035cc669170693f86f72219',1,'WaveHC']]],
-  ['reserved1',['reserved1',['../structfat32_boot_sector.html#a0a59c59a3f18c1117ffc6a0c25295b9c',1,'fat32BootSector']]],
+  ['reserved',['reserved',['../struct_c_i_d.html#a458794d915efa88aef06f5b0612895ac',1,'CID']]],
+  ['reserved1',['reserved1',['../structfat32_boot_sector.html#a0a59c59a3f18c1117ffc6a0c25295b9c',1,'fat32BootSector::reserved1()'],['../struct_c_s_d_v1.html#a8fc5b7146910eb474d3ea3af5fbc504b',1,'CSDV1::reserved1()'],['../struct_c_s_d_v2.html#a7778a9786d45cd4efa7bf06d7bded52a',1,'CSDV2::reserved1()']]],
+  ['reserved2',['reserved2',['../struct_c_s_d_v1.html#a3b2832468c7e96a55dbe16a7aadcafd3',1,'CSDV1::reserved2()'],['../struct_c_s_d_v2.html#a5151e2d94077d2a1ac8361174e4cd55a',1,'CSDV2::reserved2()']]],
+  ['reserved3',['reserved3',['../struct_c_s_d_v1.html#a427423bc33b20c59941db0b25d60aee9',1,'CSDV1::reserved3()'],['../struct_c_s_d_v2.html#a75924bf9bb5d5789e504a7b2d0dafb52',1,'CSDV2::reserved3()']]],
+  ['reserved4',['reserved4',['../struct_c_s_d_v1.html#a8c0aa397613ce7723033f0f8edccf458',1,'CSDV1::reserved4()'],['../struct_c_s_d_v2.html#a4f474cd2339283c9a2224eb1259c8e53',1,'CSDV2::reserved4()']]],
+  ['reserved5',['reserved5',['../struct_c_s_d_v1.html#ab19ce641d4e1ed12241f3519836c30dc',1,'CSDV1::reserved5()'],['../struct_c_s_d_v2.html#a6beffc3766b7f6cd658e3dad5b7e12f7',1,'CSDV2::reserved5()']]],
+  ['reserved6',['reserved6',['../struct_c_s_d_v2.html#ac401478963e75077602ad0ca9f93c98a',1,'CSDV2']]],
+  ['reserved7',['reserved7',['../struct_c_s_d_v2.html#a10ae8595e043b636b4aeaedcefaa4f97',1,'CSDV2']]],
   ['reservednt',['reservedNT',['../structdirectory_entry.html#afe7d00be85f3b78549b21610050da52b',1,'directoryEntry']]],
   ['reservedsectorcount',['reservedSectorCount',['../structbios_parm_block.html#adb4830c345b27293c7d7b97b77f52e01',1,'biosParmBlock']]],
   ['rootdirentrycount',['rootDirEntryCount',['../structbios_parm_block.html#a9a1b24bb2dbb3a123c4ffc703954d71d',1,'biosParmBlock']]]

@@ -8,6 +8,8 @@ var searchData=
   ['fat32version',['fat32Version',['../structbios_parm_block.html#abad4f6f0c14dad9f5b7d43de94e685e8',1,'biosParmBlock']]],
   ['fatcount',['fatCount',['../structbios_parm_block.html#a7c03f147c3fb18f0df03d346050af13b',1,'biosParmBlock']]],
   ['fd',['fd',['../class_wave_h_c.html#aa7fa3b32ee54c01264c172a1c306173d',1,'WaveHC']]],
+  ['file_5fformat',['file_format',['../struct_c_s_d_v1.html#a537754d4987f7c51d5a67b66d8870cf5',1,'CSDV1::file_format()'],['../struct_c_s_d_v2.html#ac1c316bc9b54c269007fb8e29f635508',1,'CSDV2::file_format()']]],
+  ['file_5fformat_5fgrp',['file_format_grp',['../struct_c_s_d_v1.html#a39a7305faa36816b35635cbc6a6810dd',1,'CSDV1::file_format_grp()'],['../struct_c_s_d_v2.html#a093e6982187fdc5ba9c787c014f6296c',1,'CSDV2::file_format_grp()']]],
   ['filesize',['fileSize',['../structdirectory_entry.html#ac2445d99b50f925f662952e0ccd26a02',1,'directoryEntry']]],
   ['filesystemtype',['fileSystemType',['../structfat32_boot_sector.html#a2835c957e6b680afded2b5f7e133fd3e',1,'fat32BootSector']]],
   ['firstclusterhigh',['firstClusterHigh',['../structdirectory_entry.html#a3b492598b2b05e8425d2a500443613bd',1,'directoryEntry']]],

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Adafruit Library: WaveHC Class Reference</title>
+<title>Adafruit FT6206 Arduino Library: WaveHC Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Adafruit Library
+   <div id="projectname">Adafruit FT6206 Arduino Library
    </div>
   </td>
  </tr>
@@ -114,6 +114,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a313e582c526525f5498c26cade9c4845"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b234cb6501f4db1b257828e353cb186"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_wave_h_c.html#a8b234cb6501f4db1b257828e353cb186">errors</a></td></tr>
 <tr class="separator:a8b234cb6501f4db1b257828e353cb186"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b387695360e527d74ec0315e8a84eab"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_wave_h_c.html#a8b387695360e527d74ec0315e8a84eab">volume</a></td></tr>
+<tr class="separator:a8b387695360e527d74ec0315e8a84eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7fa3b32ee54c01264c172a1c306173d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_fat_reader.html">FatReader</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_wave_h_c.html#aa7fa3b32ee54c01264c172a1c306173d">fd</a></td></tr>
 <tr class="separator:aa7fa3b32ee54c01264c172a1c306173d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -472,6 +474,21 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Number of times data was not available from the SD in the DAC ISR </p>
+
+</div>
+</div>
+<a id="a8b387695360e527d74ec0315e8a84eab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b387695360e527d74ec0315e8a84eab">&#9670;&nbsp;</a></span>volume</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t WaveHC::volume</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Software volume control. Reduce volume by 6 dB per step. See DAC ISR. </p>
 
 </div>
 </div>

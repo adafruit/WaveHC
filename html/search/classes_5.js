@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sdreader',['SdReader',['../class_sd_reader.html',1,'']]]
+  ['partitiontable',['partitionTable',['../structpartition_table.html',1,'']]]
 ];

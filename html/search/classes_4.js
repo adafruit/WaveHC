@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['partitiontable',['partitionTable',['../structpartition_table.html',1,'']]]
+  ['masterbootrecord',['masterBootRecord',['../structmaster_boot_record.html',1,'']]]
 ];

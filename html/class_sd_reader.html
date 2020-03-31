@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Adafruit Library: SdReader Class Reference</title>
+<title>Adafruit FT6206 Arduino Library: SdReader Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Adafruit Library
+   <div id="projectname">Adafruit FT6206 Arduino Library
    </div>
   </td>
  </tr>
@@ -89,10 +89,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa4dc451f09a372c1eb6506ae48d282d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a689af41663bfa49fe1397eba30bf136e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sd_reader.html#a689af41663bfa49fe1397eba30bf136e">readData</a> (uint32_t block, uint16_t offset, uint8_t *dst, uint16_t count)</td></tr>
 <tr class="separator:a689af41663bfa49fe1397eba30bf136e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13c1f6d1fd27e4a987fb2b59db47b26b"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sd_reader.html#a13c1f6d1fd27e4a987fb2b59db47b26b">readCID</a> (cid_t &amp;cid)</td></tr>
-<tr class="memdesc:a13c1f6d1fd27e4a987fb2b59db47b26b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a cards CID register. The CID contains card identification information such as Manufacturer ID, Product name, Product serial number and Manufacturing date.  <a href="#a13c1f6d1fd27e4a987fb2b59db47b26b">More...</a><br /></td></tr>
+<tr class="memitem:a13c1f6d1fd27e4a987fb2b59db47b26b"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sd_reader.html#a13c1f6d1fd27e4a987fb2b59db47b26b">readCID</a> (<a class="el" href="struct_c_i_d.html">cid_t</a> &amp;cid)</td></tr>
+<tr class="memdesc:a13c1f6d1fd27e4a987fb2b59db47b26b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a cards <a class="el" href="struct_c_i_d.html" title="&lt; CID typedef struct ">CID</a> register. The <a class="el" href="struct_c_i_d.html" title="&lt; CID typedef struct ">CID</a> contains card identification information such as Manufacturer ID, Product name, Product serial number and Manufacturing date.  <a href="#a13c1f6d1fd27e4a987fb2b59db47b26b">More...</a><br /></td></tr>
 <tr class="separator:a13c1f6d1fd27e4a987fb2b59db47b26b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac216970757b27f40d3b719c8290356d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sd_reader.html#aac216970757b27f40d3b719c8290356d">readCSD</a> (csd_t &amp;csd)</td></tr>
+<tr class="memitem:aac216970757b27f40d3b719c8290356d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sd_reader.html#aac216970757b27f40d3b719c8290356d">readCSD</a> (<a class="el" href="unioncsd__t.html">csd_t</a> &amp;csd)</td></tr>
 <tr class="memdesc:aac216970757b27f40d3b719c8290356d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a cards CSD register. The CSD contains Card-Specific Data that provides information regarding access to the card contents.  <a href="#aac216970757b27f40d3b719c8290356d">More...</a><br /></td></tr>
 <tr class="separator:aac216970757b27f40d3b719c8290356d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34b9b1978f606c965801df605f5610bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sd_reader.html#a34b9b1978f606c965801df605f5610bd">readEnd</a> (void)</td></tr>
@@ -375,7 +375,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">uint8_t SdReader::readCID </td>
           <td>(</td>
-          <td class="paramtype">cid_t &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_c_i_d.html">cid_t</a> &amp;&#160;</td>
           <td class="paramname"><em>cid</em></td><td>)</td>
           <td></td>
         </tr>
@@ -387,8 +387,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Read a cards CID register. The CID contains card identification information such as Manufacturer ID, Product name, Product serial number and Manufacturing date. </p>
-<p>Read a cards CID register. The CID contains card identification information such as Manufacturer ID, Product name, Product serial number and Manufacturing date.</p>
+<p>Read a cards <a class="el" href="struct_c_i_d.html" title="&lt; CID typedef struct ">CID</a> register. The <a class="el" href="struct_c_i_d.html" title="&lt; CID typedef struct ">CID</a> contains card identification information such as Manufacturer ID, Product name, Product serial number and Manufacturing date. </p>
+<p>Read a cards <a class="el" href="struct_c_i_d.html" title="&lt; CID typedef struct ">CID</a> register. The <a class="el" href="struct_c_i_d.html" title="&lt; CID typedef struct ">CID</a> contains card identification information such as Manufacturer ID, Product name, Product serial number and Manufacturing date.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cid</td><td>the pointer to the cid struct the data should be placed in </td></tr>
@@ -411,7 +411,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">uint8_t SdReader::readCSD </td>
           <td>(</td>
-          <td class="paramtype">csd_t &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="unioncsd__t.html">csd_t</a> &amp;&#160;</td>
           <td class="paramname"><em>csd</em></td><td>)</td>
           <td></td>
         </tr>

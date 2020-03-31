@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wavehc',['WaveHC',['../class_wave_h_c.html',1,'']]]
+  ['sdreader',['SdReader',['../class_sd_reader.html',1,'']]]
 ];
