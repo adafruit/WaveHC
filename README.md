@@ -1,8 +1,8 @@
-## Adafruit WaveHC Library [![Build Status](https://travis-ci.com/adafruit/WaveHC.svg?branch=master)](https://travis-ci.com/adafruit/WaveHC)
+# Adafruit WaveHC Library [![Build Status](https://github.com/adafruit/WaveHC/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/adafruit/WaveHC/actions)
 
 <img src="https://cdn-shop.adafruit.com/970x728/94-05.jpg" height="300"/>
 
-WaveHC is a library for the Adafruit Wave Shield.:
+## WaveHC is a library for the Adafruit Wave Shield.:
   * https://www.adafruit.com/products/94
 
 To use this library place the uncompressed WaveHC folder into the 
@@ -21,14 +21,14 @@ Try daphc.pde in the WaveHC/examples folder.  If you have
 problems run the SdReadTest.pde sketch to get more information.
 
 
-ATMEGA168
+## ATMEGA168
 
 For the AtMega168 be sure to reduce the serial buffer size by setting 
 RX_BUFFER_SIZE to 32 or less in 
 hardware/arduino/cores/arduino/HardwareSerial.cpp.  I use 16.
 
 
-SD CARD INIT PROBLEMS
+## SD CARD INIT PROBLEMS
 
 Some SD card are very sensitive to the SPI bus speed for initialization.
 Try setting SPI_INIT_SLOW nonzero if you have initialization problems.
@@ -36,7 +36,7 @@ To change edit SdReader.h and change the SPI_INIT_SLOW line to:
 #define SPI_INIT_SLOW 1
 
 
-WAVE SHIELD V1.0
+## WAVE SHIELD V1.0
 
 You may have SD I/O errors with Wave Shield V1.0.  Most SD cards
 work with V1.0 but some brands/types fail.  Often reducing the SPI
@@ -51,7 +51,7 @@ to
 #define SPI_DEFAULT_HALF_SPEED true
 
 
-PREPARING SD CARDS
+## PREPARING SD CARDS
 
 WaveHC supports FAT16/FAT32 formats on SD/SDHC cards.  WaveHC only
 supports short 8.3 DOS style file names.
@@ -81,7 +81,7 @@ reduces latency and file system overhead.  SDFormatter does not have an
 option for FAT type so it may format small cards as FAT12.
 
 
-EXAMPLES
+## EXAMPLES
 
 I have included several updates examples for WaveHC in the WaveHC/examples 
 folder.  More examples can be downloaded from the Adafruit website:
@@ -89,27 +89,27 @@ http://www.ladyada.net/make/waveshield/examples.html
 
 The updated examples are:
 
-daphc.pde - plays all .WAV files on an SD.
+`daphc.ino` - plays all .WAV files on an SD.
 
-SdReadTest.pde - A sketch to get more information about an SD card.
+`SdReadTest.ino` - A sketch to get more information about an SD card.
 
-PiSpeaker.pde - A text-to-voice sketch that reads pi.  You need to
+`PiSpeaker.ino` - A text-to-voice sketch that reads pi.  You need to
                 put the files from the piwav folder in example files
                 on an SD.
                 
-SampleRateHC.pde - A modified version of the Adafruit example that
+`SampleRateHC.ino` - A modified version of the Adafruit example that
                    sets player sample rate by reading analog pin zero.
                    
-SoftVolume.pde - A modified version of the Adafruit example
+`SoftVolume.ino` - A modified version of the Adafruit example
                  for software volume control.
 
 
-openByIndex.pde - Shows how to reduce latency between files for
+`openByIndex.ino` - Shows how to reduce latency between files for
                   applications that must not have a large latency
                   between files.
 
                   
-CUSTOM SETTINGS
+## CUSTOM SETTINGS
 
 Advanced users may wish to change WaveHC settings.  Most setting are
 defines in these files:

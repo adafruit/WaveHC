@@ -19,4 +19,4 @@
 int FreeRam(void);
 void SerialPrint_P(PGM_P str);
 void SerialPrintln_P(PGM_P str);
-#endif //WaveUtil_h
+#endif // WaveUtil_h

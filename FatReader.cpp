@@ -20,9 +20,9 @@
 #include <string.h>
 #if ARDUINO < 100
 #include <WProgram.h>
-#else  // ARDUINO
+#else // ARDUINO
 #include <Arduino.h>
-#endif  // ARDUINO
+#endif // ARDUINO
 #include <FatReader.h>
 //------------------------------------------------------------------------------
 /**
@@ -32,8 +32,10 @@
 void dirName(dir_t &dir, char name[]) {
   uint8_t j = 0;
   for (uint8_t i = 0; i < 11; i++) {
-    if (dir.name[i] == ' ')continue;
-    if (i == 8) name[j++] = '.';
+    if (dir.name[i] == ' ')
+      continue;
+    if (i == 8)
+      name[j++] = '.';
     name[j++] = dir.name[i];
   }
   name[j] = 0;
@@ -46,8 +48,10 @@ void dirName(dir_t &dir, char name[]) {
  */
 void printEntryName(dir_t &dir) {
   for (uint8_t i = 0; i < 11; i++) {
-    if (dir.name[i] == ' ')continue;
-    if (i == 8) Serial.write('.');
+    if (dir.name[i] == ' ')
+      continue;
+    if (i == 8)
+      Serial.write('.');
     Serial.write(dir.name[i]);
   }
   if (DIR_IS_SUBDIR(dir)) {
@@ -57,20 +61,21 @@ void printEntryName(dir_t &dir) {
 }
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  list file in a directory
     @param flags file flags
 */
 /**************************************************************************/
 void FatReader::ls(uint8_t flags) {
   dir_t d;
-  if (isDir()) lsR(d, flags, 0);
+  if (isDir())
+    lsR(d, flags, 0);
 }
 //------------------------------------------------------------------------------
 // recursive part of ls()
 void FatReader::lsR(dir_t &d, uint8_t flags, uint8_t indent) {
   while (readDir(d) > 0) {
-  
+
     // print any indent spaces
     for (int8_t i = 0; i < indent; i++) {
       Serial.write(' ');
@@ -86,12 +91,11 @@ void FatReader::lsR(dir_t &d, uint8_t flags, uint8_t indent) {
           s.lsR(d, flags, indent + 2);
         }
       }
-    }
-    else {
+    } else {
       if (flags & LS_FLAG_FRAGMENTED) {
         uint32_t c = (uint32_t)d.firstClusterHigh << 16;
         c |= d.firstClusterLow;
-        
+
         // fragmented if has clusters and not contiguous
         char f = c && !vol_->chainIsContiguous(c) ? '*' : ' ';
         Serial.write(' ');
@@ -153,17 +157,18 @@ uint32_t FatVolume::nextCluster(uint32_t cluster) {
  */
 uint8_t FatReader::open(FatReader &dir, uint16_t index) {
   dir_t d;
-  
+
   // position directory file to entry
-  if (!dir.seekSet(32UL*index)) return false;
-  
+  if (!dir.seekSet(32UL * index))
+    return false;
+
   // read entry
-  if (dir.read(&d, 32) != 32) return false;
-  
+  if (dir.read(&d, 32) != 32)
+    return false;
+
   // must be a real file or directory
-  if (!DIR_IS_FILE_OR_SUBDIR(d)
-    || d.name[0] == DIR_NAME_FREE
-    || d.name[0] == DIR_NAME_DELETED) {
+  if (!DIR_IS_FILE_OR_SUBDIR(d) || d.name[0] == DIR_NAME_FREE ||
+      d.name[0] == DIR_NAME_DELETED) {
     return false;
   }
   return open(*dir.volume(), d);
@@ -171,29 +176,30 @@ uint8_t FatReader::open(FatReader &dir, uint16_t index) {
 //------------------------------------------------------------------------------
 /**
  * Open a file or subdirectory by name.
- * 
+ *
  * \note The file or subdirectory, \a name, must be in the specified
  * directory, \a dir, and must have a DOS 8.3 name.
- * 
+ *
  * \param[in] dir An open FatReader instance for the directory.
- *  
+ *
  * \param[in] name A valid 8.3 DOS name for a file or subdirectory in the
  * directory \a dir.
- * 
+ *
  * \return The value one, true, is returned for success and
  * the value zero, false, is returned for failure.
  * Reasons for failure include the FAT volume has not been initialized, \a dir
  * is not a directory, \a name is invalid, the file or subdirectory does not
- *  exist, or an I/O error occurred.  
- */  
+ *  exist, or an I/O error occurred.
+ */
 uint8_t FatReader::open(FatReader &dir, char *name) {
   dir_t entry;
   char dname[13];
-  
+
   dir.rewind();
-  while(dir.readDir(entry) > 0) {
+  while (dir.readDir(entry) > 0) {
     dirName(entry, dname);
-    if (strcasecmp(dname, name)) continue;
+    if (strcasecmp(dname, name))
+      continue;
     return open(*(dir.vol_), entry);
   }
   return false;
@@ -201,18 +207,19 @@ uint8_t FatReader::open(FatReader &dir, char *name) {
 //------------------------------------------------------------------------------
 /**
  * Open a file or subdirectory by directory structure.
- * 
+ *
  * \param[in] vol The FAT volume that contains the file or subdirectory.
- *  
+ *
  * \param[in] dir The directory structure describing the file or subdirectory.
- * 
+ *
  * \return The value one, true, is returned for success and
  * the value zero, false, is returned for failure.
  * Reasons for failure include the FAT volume, \a vol, has not been initialized,
  * \a vol is a FAT12 volume or \a dir is not a valid directory entry.
- */  
+ */
 uint8_t FatReader::open(FatVolume &vol, dir_t &dir) {
-  if (vol.fatType() < 16) return false;
+  if (vol.fatType() < 16)
+    return false;
   if (dir.name[0] == 0 || dir.name[0] == DIR_NAME_DELETED) {
     return false;
   }
@@ -221,12 +228,10 @@ uint8_t FatReader::open(FatVolume &vol, dir_t &dir) {
   if (DIR_IS_FILE(dir)) {
     type_ = FILE_TYPE_NORMAL;
     fileSize_ = dir.fileSize;
-  }
-  else if (DIR_IS_SUBDIR(dir)) {
+  } else if (DIR_IS_SUBDIR(dir)) {
     type_ = FILE_TYPE_SUBDIR;
     fileSize_ = vol.chainSize(firstCluster_);
-  }
-  else {
+  } else {
     return false;
   }
   vol_ = &vol;
@@ -245,17 +250,15 @@ uint8_t FatReader::open(FatVolume &vol, dir_t &dir) {
  * or it a FAT12 volume.
  */
 uint8_t FatReader::openRoot(FatVolume &vol) {
-  if(vol.fatType() == 16) {
+  if (vol.fatType() == 16) {
     type_ = FILE_TYPE_ROOT16;
     firstCluster_ = 0;
-    fileSize_ = 32*vol.rootDirEntryCount();
-  }
-  else if (vol.fatType() == 32) {
+    fileSize_ = 32 * vol.rootDirEntryCount();
+  } else if (vol.fatType() == 32) {
     type_ = FILE_TYPE_ROOT32;
     firstCluster_ = vol.rootDirStart();
     fileSize_ = vol.chainSize(firstCluster_);
-  }
-  else {
+  } else {
     return false;
   }
   vol_ = &vol;
@@ -277,24 +280,25 @@ void FatReader::optimizeContiguous(void) {
 //------------------------------------------------------------------------------
 /**
  * Read data from a file at starting at the current read position.
- * 
+ *
  * \param[out] buf Pointer to the location that will receive the data.
- * 
+ *
  * \param[in] count Maximum number of bytes to read.
- * 
+ *
  * \return For success read() returns the number of bytes read.
  * A value less than \a count, including zero, will be returned
- * if end of file is reached. 
+ * if end of file is reached.
  * If an error occurs, read() returns -1.  Possible errors include
  * read() called before a file has been opened, corrupt file system
  * or an I/O error occurred.
- */ 
+ */
 int16_t FatReader::read(void *buf, uint16_t count) {
   uint8_t *dst = (uint8_t *)buf;
   uint16_t nr = 0;
   int16_t n = 0;
   while (nr < count && (n = readBlockData(dst, count - nr)) > 0) {
-    if (!seekCur(n)) return -1;
+    if (!seekCur(n))
+      return -1;
     dst += n;
     nr += n;
   }
@@ -305,15 +309,16 @@ int16_t FatReader::read(void *buf, uint16_t count) {
 int16_t FatReader::readBlockData(uint8_t *dst, uint16_t count) {
   uint32_t block;
   uint16_t offset = readPosition_ & 0X1FF;
-  if (count > (512 - offset)) count = 512 - offset;
-  if (count > (fileSize_ - readPosition_)) count = fileSize_ - readPosition_;
+  if (count > (512 - offset))
+    count = 512 - offset;
+  if (count > (fileSize_ - readPosition_))
+    count = fileSize_ - readPosition_;
   if (fileType() == FILE_TYPE_ROOT16) {
     block = vol_->rootDirStart() + (readPosition_ >> 9);
-  }
-  else {
+  } else {
     uint8_t bpc = vol_->blocksPerCluster();
-    block = vol_->dataStartBlock() + (readCluster_ - 2)*bpc
-                        + ((readPosition_ >> 9) & (bpc -1));
+    block = vol_->dataStartBlock() + (readCluster_ - 2) * bpc +
+            ((readPosition_ >> 9) & (bpc - 1));
   }
   return vol_->rawRead(block, offset, dst, count) ? count : -1;
 }
@@ -331,12 +336,15 @@ int16_t FatReader::readBlockData(uint8_t *dst, uint16_t count) {
  */
 int8_t FatReader::readDir(dir_t &dir) {
   int8_t n;
-  //if not a directory file return an error
-  if (!isDir()) return -1;
-  while ((n = read((uint8_t *)&dir, sizeof(dir_t))) == sizeof(dir_t)
-       && dir.name[0] != DIR_NAME_FREE) {
-    if (dir.name[0] == DIR_NAME_DELETED || dir.name[0] == '.') continue;
-    if (DIR_IS_FILE(dir) || DIR_IS_SUBDIR(dir)) return n;
+  // if not a directory file return an error
+  if (!isDir())
+    return -1;
+  while ((n = read((uint8_t *)&dir, sizeof(dir_t))) == sizeof(dir_t) &&
+         dir.name[0] != DIR_NAME_FREE) {
+    if (dir.name[0] == DIR_NAME_DELETED || dir.name[0] == '.')
+      continue;
+    if (DIR_IS_FILE(dir) || DIR_IS_SUBDIR(dir))
+      return n;
   }
   return n < 0 ? n : 0;
 }
@@ -351,33 +359,35 @@ void FatReader::rewind(void) {
  * \a offset.
  *
  * \param[in] offset The amount to advance the read position.
- * 
+ *
  * \return The value one, true, is returned for success and
- * the value zero, false, is returned for failure.   
+ * the value zero, false, is returned for failure.
  */
 uint8_t FatReader::seekCur(uint32_t offset) {
 
   uint32_t newPos = readPosition_ + offset;
-  
+
   // can't position beyond end of file
-  if (newPos > fileSize_) return false;
-  
+  if (newPos > fileSize_)
+    return false;
+
   // number of clusters forward
-  uint32_t nc = (newPos >> 9)/vol_->blocksPerCluster()
-                 - (readPosition_ >> 9)/vol_->blocksPerCluster();
-                 
+  uint32_t nc = (newPos >> 9) / vol_->blocksPerCluster() -
+                (readPosition_ >> 9) / vol_->blocksPerCluster();
+
   // set new position - only corrupt file system can cause error now
   readPosition_ = newPos;
-  
+
   // no clusters if FAT16 root
-  if (fileType() == FILE_TYPE_ROOT16) return true;
-  
+  if (fileType() == FILE_TYPE_ROOT16)
+    return true;
+
   // don't need to read FAT if contiguous
   if (isContiguous()) {
     readCluster_ += nc;
     return true;
   }
-  
+
   // read FAT chain while nc != 0
   while (nc-- != 0) {
     if (!(readCluster_ = vol_->nextCluster(readCluster_))) {
@@ -390,7 +400,7 @@ uint8_t FatReader::seekCur(uint32_t offset) {
 /** check for contiguous chain */
 uint8_t FatVolume::chainIsContiguous(uint32_t cluster) {
   uint32_t next;
-  while((next = nextCluster(cluster))) {
+  while ((next = nextCluster(cluster))) {
     if (next != (cluster + 1)) {
       return isEOC(next);
     }
@@ -403,7 +413,7 @@ uint8_t FatVolume::chainIsContiguous(uint32_t cluster) {
 uint32_t FatVolume::chainSize(uint32_t cluster) {
   uint32_t size = 0;
   while ((cluster = nextCluster(cluster))) {
-    size += 512*blocksPerCluster_;
+    size += 512 * blocksPerCluster_;
   }
   return size;
 }
@@ -430,16 +440,16 @@ uint8_t FatVolume::init(SdReader &dev, uint8_t part) {
   // if part == 0 assume super floppy with FAT boot sector in block zero
   // if part > 0 assume mbr volume with partition table
   if (part) {
-    if (part > 4) return false;
-    
-    if (!rawRead(volumeStartBlock, PART_OFFSET + 16*(part-1), buf, 16)) {
+    if (part > 4)
+      return false;
+
+    if (!rawRead(volumeStartBlock, PART_OFFSET + 16 * (part - 1), buf, 16)) {
       return false;
     }
     part_t *part = (part_t *)buf;
-    if ((part->boot & 0X7F) !=0  ||
-      part->totalSectors < 100 ||
-      part->firstSector == 0) {
-      //not a valid partition
+    if ((part->boot & 0X7F) != 0 || part->totalSectors < 100 ||
+        part->firstSector == 0) {
+      // not a valid partition
       return false;
     }
     volumeStartBlock = part->firstSector;
@@ -448,31 +458,29 @@ uint8_t FatVolume::init(SdReader &dev, uint8_t part) {
     return false;
   }
   bpb_t *bpb = (bpb_t *)buf;
-  if (bpb->bytesPerSector != 512 ||
-    bpb->fatCount == 0 ||
-    bpb->reservedSectorCount == 0 ||
-    bpb->sectorsPerCluster == 0 ||
-    (bpb->sectorsPerCluster & (bpb->sectorsPerCluster - 1)) != 0) {
-       // not valid FAT volume
-      return false;
+  if (bpb->bytesPerSector != 512 || bpb->fatCount == 0 ||
+      bpb->reservedSectorCount == 0 || bpb->sectorsPerCluster == 0 ||
+      (bpb->sectorsPerCluster & (bpb->sectorsPerCluster - 1)) != 0) {
+    // not valid FAT volume
+    return false;
   }
   fatCount_ = bpb->fatCount;
   blocksPerCluster_ = bpb->sectorsPerCluster;
-  blocksPerFat_ = bpb->sectorsPerFat16 ? bpb->sectorsPerFat16 : bpb->sectorsPerFat32;
+  blocksPerFat_ =
+      bpb->sectorsPerFat16 ? bpb->sectorsPerFat16 : bpb->sectorsPerFat32;
   rootDirEntryCount_ = bpb->rootDirEntryCount;
   fatStartBlock_ = volumeStartBlock + bpb->reservedSectorCount;
-  rootDirStart_ = fatStartBlock_ + bpb->fatCount*blocksPerFat_;
-  dataStartBlock_ = rootDirStart_ + ((32*bpb->rootDirEntryCount + 511)/512);
-  totalBlocks_ = bpb->totalSectors16 ? bpb->totalSectors16 : bpb->totalSectors32;
-  clusterCount_ = (totalBlocks_ - (dataStartBlock_ - volumeStartBlock))
-                  /bpb->sectorsPerCluster;
+  rootDirStart_ = fatStartBlock_ + bpb->fatCount * blocksPerFat_;
+  dataStartBlock_ = rootDirStart_ + ((32 * bpb->rootDirEntryCount + 511) / 512);
+  totalBlocks_ =
+      bpb->totalSectors16 ? bpb->totalSectors16 : bpb->totalSectors32;
+  clusterCount_ = (totalBlocks_ - (dataStartBlock_ - volumeStartBlock)) /
+                  bpb->sectorsPerCluster;
   if (clusterCount_ < 4085) {
     fatType_ = 12;
-  }
-  else if (clusterCount_ < 65525) {
+  } else if (clusterCount_ < 65525) {
     fatType_ = 16;
-  }
-  else {
+  } else {
     rootDirStart_ = bpb->fat32RootCluster;
     fatType_ = 32;
   }
