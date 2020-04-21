@@ -1,4 +1,4 @@
-# Adafruit WaveHC Library [![Build Status](https://github.com/adafruit/WaveHC/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/adafruit/WaveHC/actions)
+# Adafruit WaveHC Library [![Build Status](https://github.com/adafruit/WaveHC/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/adafruit/WaveHC/actions)[![Documentation](https://github.com/adafruit/ci-arduino/blob/master/assets/doxygen_badge.svg)](http://adafruit.github.io/WaveHC/html/index.html)
 
 <img src="https://cdn-shop.adafruit.com/970x728/94-05.jpg" height="300"/>
 
