@@ -33,7 +33,7 @@
  * Must be set after call to WaveHC::create().
  * Decreases MAX_CLOCK_RATE to 22050.
  */
-#define DVOLUME 0
+#define DVOLUME 1
 /**
  * Set behavior for files that exceed MAX_CLOCK_RATE or MAX_BYTE_RATE.
  * If RATE_ERROR_LEVEL = 2, rate too high errors are fatal.
