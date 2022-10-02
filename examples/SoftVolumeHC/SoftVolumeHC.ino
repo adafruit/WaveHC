@@ -107,9 +107,9 @@ void playcomplete(FatReader &file) {
     // DVOLUME must be nonzero in WaveHC.h to use volume.
     Serial.println(wave.volume, DEC);
      
-    delay(2000);
+    delay(500);
     wave.volume++;
-    if ( wave.volume == 12) {
+    if (wave.volume == 12) {
       wave.volume = 0;
     }
   }

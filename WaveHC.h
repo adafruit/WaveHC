@@ -30,10 +30,10 @@
 /**
  * Software volume control should be compatible with Ladyada's library.
  * Uses shift to decrease volume by 6 dB per step. See DAC ISR in WaveHC.cpp.
- * Must be set after call to WaveHC::create().
+ * WaveHC.volume must be set after call to WaveHC::create().
  * Decreases MAX_CLOCK_RATE to 22050.
  */
-#define DVOLUME 0
+#define DVOLUME 1
 /**
  * Set behavior for files that exceed MAX_CLOCK_RATE or MAX_BYTE_RATE.
  * If RATE_ERROR_LEVEL = 2, rate too high errors are fatal.
@@ -67,7 +67,7 @@
 /** maximum DAC clock rate */
 #define MAX_CLOCK_RATE 44100
 #else // DVOLUME
-/** Decreased clock rate if volume control is used */
+/** Decreased clock rate if volume control is used. Gives more time in ISR. */
 #define MAX_CLOCK_RATE 22050
 #endif // DVOLUME
 
@@ -95,7 +95,9 @@ public:
   /** Number of times data was not available from the SD in the DAC ISR */
   uint32_t errors;
 
-  /** Software volume control. Reduce volume by 6 dB per step. See DAC ISR. */
+  /** Software volume control. Reduce volume by 6 dB per step. See DAC ISR.
+   *  0 is loudest, >= 12 is silent.
+   */
   uint8_t volume;
   /** FatReader instance for current wave file. */
   FatReader *fd;
