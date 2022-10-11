@@ -105,11 +105,11 @@ void playcomplete(FatReader &file) {
   int16_t lastpotval = 0;
   uint32_t newsamplerate;
   
-  if (!wave.create(file)) {
+   if (!wave.create(file)) {
      putstring_nl(" Not a valid WAV"); return;
-  }
-  // ok time to play!
-  wave.play();
+   }
+   // ok time to play!
+   wave.play();
 
   while (wave.isplaying) {
      potval = analogRead(0);
