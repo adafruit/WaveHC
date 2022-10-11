@@ -437,7 +437,7 @@ void WaveHC::play(void) {
 
 #if !DVOLUME
   if (playing->volume) {
-      putstring_nl("Non-zero software volume ignored. Recompile with DVOLUME=1 in WaveHC.h");
+    putstring_nl("Soft volume ignored. Recompile w/ DVOLUME=1 in WaveHC.h");
   }
 #endif
 

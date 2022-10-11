@@ -66,6 +66,7 @@
 #define SD_CARD_ERROR_READ 0X10
 /** unsupported CSD version */
 #define SD_CARD_ERROR_UNSUPPORTED_CSD_VERSION 0x11
+
 //
 // card types
 /** Standard capacity V1 SD card */
