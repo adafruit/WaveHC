@@ -141,10 +141,6 @@ void loop(void) {
     putstring_nl("\nRead Failure");
     putstring("lbn: ");
     Serial.println(b);  
-    putstring("nRead: ");
-    Serial.print(nRead);
-    putstring("/");
-    Serial.println(nTest);
     sdError();
   }
 }
