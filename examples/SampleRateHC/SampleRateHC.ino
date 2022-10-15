@@ -2,6 +2,16 @@
  * Adafruit SampleRateMod.pde example modified to use WaveHC.
  *
  * Play files with sample rate controlled by voltage on analog pin zero.
+ *
+ * To test this example, format the SD card and copy
+ * FilesforExamples/samplerate/scale.WAV to the root directory. Connect
+ * the wiper of a potentiometer to analog pin 0 and the
+ * other two pins of the pot to GND and a pin
+ * held HIGH (+5V for a 5V based Arduino.)
+ *
+ * As the file plays, turn the pot. The lower the voltage, the slower the
+ * file will play.  The higher the voltage, the faster it will play.
+ *
  */
 #include <WaveHC.h>
 #include <WaveUtil.h>
@@ -88,13 +98,13 @@ void sdErrorCheck(void) {
   Serial.println(card.errorData(), HEX);
   while(1);
 }
-int16_t lastpotval = 0;
 #define HYSTERESIS 3
 /*
  * play file with sample rate changes
  */
 void playcomplete(FatReader &file) {
   int16_t potval;
+  int16_t lastpotval = 0;
   uint32_t newsamplerate;
   
    if (!wave.create(file)) {
@@ -102,7 +112,7 @@ void playcomplete(FatReader &file) {
    }
    // ok time to play!
    wave.play();
-   
+
   while (wave.isplaying) {
      potval = analogRead(0);
      if ( ((potval - lastpotval) > HYSTERESIS) || ((lastpotval - potval) > HYSTERESIS)) {
