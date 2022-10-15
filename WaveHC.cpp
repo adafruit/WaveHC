@@ -185,7 +185,7 @@ uint8_t *sdend;   ///< end of data in sd buffer
 uint8_t sdstatus = 0;
 
 //------------------------------------------------------------------------------
-// timer interrupt for DAC
+// DAC ISR: timer interrupt to send buffer to the DAC, start read from SD Card
 ISR(TIMER1_COMPA_vect) {
   if (!playing)
     return;
@@ -199,7 +199,7 @@ ISR(TIMER1_COMPA_vect) {
       sdbuff = sdbuff != buffer1 ? buffer1 : buffer2;
 
       sdstatus = SD_FILLING;
-      // interrupt to call SD reader
+      // re-enable interrupt to call SD reader
       TIMSK1 |= _BV(OCIE1B);
     } else if (sdstatus == SD_END_FILE) {
       playing->stop();
@@ -228,6 +228,7 @@ ISR(TIMER1_COMPA_vect) {
     playpos++;
   }
 
+  // Optional software volume control.
 #if DVOLUME
   uint16_t tmp = (dh << 8) | dl;
   tmp >>= playing->volume;
@@ -266,8 +267,7 @@ ISR(TIMER1_COMPA_vect) {
   mcpDacCsHigh();
 }
 //------------------------------------------------------------------------------
-// this is the interrupt that fills the playbuffer
-
+// SD Card ISR: fills buffer from the SD Card while current one is playing
 ISR(TIMER1_COMPB_vect) {
 
   // turn off calling interrupt
@@ -307,10 +307,6 @@ WaveHC::WaveHC(void) { fd = 0; }
 uint8_t WaveHC::create(FatReader &f) {
   // 18 byte buffer
   // can use this since Arduino and RIFF are Little Endian
-  if (!DVOLUME) {
-    Serial.println("DVOLUME must be set to non-zero in WaveHC.h");
-    return false;
-  }
   union {
     struct {
       char id[4];
@@ -429,17 +425,25 @@ void WaveHC::pause(void) {
  *
  * WaveHC::create() must be called before a file can be played.
  *
+ * This method is asyncronous. Control is returned to the callers as the work
+ * is handled using TIMER1 ISR routines.
+ *
  * Check the member variable WaveHC::isplaying to monitor the status
  * of the player.
  */
 void WaveHC::play(void) {
-  // setup the interrupt as necessary
-
   int16_t read;
-
   playing = this;
 
-  // fill the play buffer
+#if !DVOLUME
+  if (playing->volume) {
+    putstring_nl("Soft volume ignored. Recompile w/ DVOLUME=1 in WaveHC.h");
+  }
+#endif
+
+  // Queue up double buffers for the DAC ISR
+
+  // fill the play buffer to play immediately
   read = readWaveData(buffer1, PLAYBUFFLEN);
   if (read <= 0)
     return;

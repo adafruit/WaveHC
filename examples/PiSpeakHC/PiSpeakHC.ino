@@ -1,6 +1,13 @@
 /*
  * Text-to-speech example to speak the first n digits of pi.
- * The number is stored in flash, each digit is spoken one at a time.
+ putstring* Each digit is spoken one at a time.
+ *
+ * The sound fo each number is stored on the SD card in separate WAV files.
+ *
+ * How to prepare a test SD:
+ * - Start with a clean newly formatted SD.
+ * - Copy the files from the FilesForExamples/piwav directory to the root of the SD.
+ *
  */
 #include <WaveHC.h>
 #include <WaveUtil.h>

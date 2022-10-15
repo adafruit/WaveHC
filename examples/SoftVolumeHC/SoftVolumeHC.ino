@@ -1,10 +1,14 @@
 /*
- * DVOLUME must be set nonzero in WaveHC.h to use this example.
- *
  * Adafruit SoftVolumeChange.pde modified to use WaveHC library.
  *
  * Play files with software volume control.
-
+ *
+ * DVOLUME must be set nonzero in WaveHC.h to use this example.
+ *
+ * Each file will start at normal volume, then the volume will
+ * step down every half second.
+ *
+ * To test this example, format the SD card and copy FilesforExamples/samplerate/scale.WAV
  */
 #include <WaveHC.h>
 #include <WaveUtil.h>
@@ -107,9 +111,9 @@ void playcomplete(FatReader &file) {
     // DVOLUME must be nonzero in WaveHC.h to use volume.
     Serial.println(wave.volume, DEC);
      
-    delay(2000);
+    delay(500);
     wave.volume++;
-    if ( wave.volume == 12) {
+    if (wave.volume == 12) {
       wave.volume = 0;
     }
   }
