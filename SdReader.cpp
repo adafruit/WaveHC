@@ -99,12 +99,14 @@ uint8_t SdReader::cardCommand(uint8_t cmd, uint32_t arg) {
 //------------------------------------------------------------------------------
 /**
  * Determine the size of an SD flash memory card.
- * \return The number of 512 byte data blocks in the card
+ * \return The number of 512 byte data blocks in the card, or 0 on failure
  */
 uint32_t SdReader::cardSize(void) {
   csd_t csd;
-  if (!readCSD(csd))
-    return false;
+  if (!readCSD(csd)) {
+    error(SD_CARD_ERROR_BAD_CSD);
+    return 0;
+  }
   if (csd.v1.csd_ver == 0) {
     uint8_t read_bl_len = csd.v1.read_bl_len;
     uint16_t c_size = (csd.v1.c_size_high << 10) | (csd.v1.c_size_mid << 2) |
@@ -113,11 +115,11 @@ uint32_t SdReader::cardSize(void) {
         (csd.v1.c_size_mult_high << 1) | csd.v1.c_size_mult_low;
     return (uint32_t)(c_size + 1) << (c_size_mult + read_bl_len - 7);
   } else if (csd.v2.csd_ver == 1) {
-    uint32_t c_size = ((uint32_t)csd.v2.c_size_high << 16) |
-                      (csd.v2.c_size_mid << 8) | csd.v2.c_size_low;
+    uint32_t c_size = ((uint32_t)csd.v2.c_size_high) << 16 |
+                      ((uint32_t)csd.v2.c_size_mid) << 8 | csd.v2.c_size_low;
     return (c_size + 1) << 10;
   } else {
-    error(SD_CARD_ERROR_BAD_CSD);
+    error(SD_CARD_ERROR_UNSUPPORTED_CSD_VERSION);
     return 0;
   }
 }
